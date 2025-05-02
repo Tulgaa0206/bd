@@ -1,0 +1,33 @@
+# Visual Studio
+.vs/
+*.user
+*.suo
+
+# Build results
+bin/
+obj/
+
+# NuGet packages
+*.nupkg
+packages/
+*.snupkg
+
+# User-specific files
+*.userprefs
+*.userosscache
+*.sln.docstates
+
+# Auto-generated files
+*.log
+
+# Rider IDE
+.idea/
+
+# Mac junk
+.DS_Store
+
+# Windows junk
+Thumbs.db
+
+# VS Code related (хэрвээ VS Code ашиглавал)
+.vscode/
