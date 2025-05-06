@@ -1,12 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
+using System.Configuration;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+using Npgsql;
+
+
 
 namespace BD_visual_
 {
@@ -15,54 +13,111 @@ namespace BD_visual_
         public Form2()
         {
             InitializeComponent();
-            this.imageList1 = new System.Windows.Forms.ImageList();
-            this.imageList1.Images.Add("available", Image.FromFile("gray.png"));    // боломжтой
-            this.imageList1.Images.Add("booked", Image.FromFile("red.png"));         // захиалагдсан
-            this.imageList1.Images.Add("selected", Image.FromFile("green.png"));     // сонгосон
         }
 
         private void Form2_Load(object sender, EventArgs e)
         {
+            string connStr = "Host=103.50.205.42;Port=5432;Username=Worms;Password=Worms1231@;Database=VisualBD;Search Path=public";
 
-            foreach (Control ctrl in this.Controls)
+            using (var conn = new NpgsqlConnection(connStr))
             {
-                if (ctrl is PictureBox)
+                conn.Open();
+
+                foreach (Control ctrl in this.Controls)
                 {
-                    PictureBox suudal = (PictureBox)ctrl;
-                    suudal.Image = imageList1.Images["available"]; // эхлээд саарал
-                    suudal.SizeMode = PictureBoxSizeMode.StretchImage;
-                    suudal.Click += suudal_Click;
+                    if (ctrl is Button btn && btn.Name.StartsWith("seat"))
+                    {
+                        string seatId = btn.Name;
+
+                        using (var cmd = new NpgsqlCommand("SELECT status FROM public.seats WHERE seat_id = @seatId", conn))
+                        {
+                            cmd.Parameters.AddWithValue("seatId", seatId);
+                            var status = cmd.ExecuteScalar() as string;
+
+                            btn.Tag = status;
+
+                            // Өнгө тохируулах
+                            switch (status)
+                            {
+                                case "available":
+                                    btn.BackColor = Color.LightGreen;
+                                    btn.Enabled = true;
+                                    break;
+                                case "selected":
+                                    btn.BackColor = Color.Yellow;
+                                    btn.Enabled = true;
+                                    break;
+                                case "reserved":
+                                    btn.BackColor = Color.Gray;
+                                    btn.Enabled = false;
+                                    break;
+                                case "saved":
+                                    btn.BackColor = Color.Red;
+                                    btn.Enabled = false;
+                                    break;
+                            }
+
+                            btn.Click += SeatButton_Click;
+                        }
+                    }
                 }
             }
         }
 
-        private void suudal_Click(object sender, EventArgs e)
+        private void SeatButton_Click(object sender, EventArgs e)
         {
-            PictureBox clickedSeat = (PictureBox)sender;
+            Button btn = (Button)sender;
+            string currentStatus = (string)btn.Tag;
 
-            // ☝️ эхлээд шалгана
-            if ((string)clickedSeat.Tag == "reserved")
-                return;
-
-            // ✔ боломжтой бол ногоон болгоно
-            if (clickedSeat.Image == imageList1.Images["available"])
+            if (currentStatus == "available")
             {
-                clickedSeat.Image = imageList1.Images["selected"];
+                btn.Tag = "selected";
+                btn.BackColor = Color.Yellow;
             }
-            else if (clickedSeat.Image == imageList1.Images["selected"])
+            else if (currentStatus == "selected")
             {
-                clickedSeat.Image = imageList1.Images["available"];
+                btn.Tag = "available";
+                btn.BackColor = Color.LightGreen;
             }
         }
+       
 
-        private void suudal3_Click(object sender, EventArgs e)
+        private void btnSave_Click_1(object sender, EventArgs e)
         {
+            string connStr = ConfigurationManager.ConnectionStrings["PostgresConnection"].ConnectionString;
 
+            using (var conn = new NpgsqlConnection(connStr))
+            {
+                conn.Open();
+
+                foreach (Control ctrl in this.Controls)
+                {
+                    if (ctrl is Button btn && btn.Name.StartsWith("seat") && (string)btn.Tag == "selected")
+                    {
+                        string seatId = btn.Name;
+
+                        using (var cmd = new NpgsqlCommand("UPDATE seats SET status = @status WHERE seat_id = @seatId", conn))
+                        {
+                            cmd.Parameters.AddWithValue("status", "saved");
+                            cmd.Parameters.AddWithValue("seatId", seatId);
+                            cmd.ExecuteNonQuery();
+                        }
+
+                        btn.Tag = "saved";
+                        btn.BackColor = Color.Red;
+                        btn.Enabled = false;
+                    }
+                }
+            }
+
+            MessageBox.Show("Суудлууд амжилттай хадгалагдлаа.", "Амжилт", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
-        private void suudal2_Click(object sender, EventArgs e)
+        private void button4_Click(object sender, EventArgs e)
         {
-
+            Form form1 = new Form();
+            form1.Show();
+            this.Hide();
         }
     }
 }
