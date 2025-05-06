@@ -25,7 +25,7 @@ namespace BD_visual_
 
                 foreach (Control ctrl in this.Controls)
                 {
-                    if (ctrl is Button btn && btn.Name.StartsWith("seat"))
+                    if (ctrl is Button btn && btn.Name.StartsWith("seats"))
                     {
                         string seatId = btn.Name;
 
