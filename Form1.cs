@@ -44,9 +44,10 @@ namespace BD_visual_
 
         private void button1_Click(object sender, EventArgs e)
         {
-            Form form2 = new Form2();
-            form2.Show();
+            var form2 = new Form2(this);
+
             this.Hide();
+            form2.Show();
         }
 
         private void label3_Click(object sender, EventArgs e)
@@ -65,6 +66,11 @@ namespace BD_visual_
         }
 
         private void label60_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label1_Click(object sender, EventArgs e)
         {
 
         }

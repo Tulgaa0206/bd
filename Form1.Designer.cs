@@ -155,6 +155,9 @@
             this.label60 = new System.Windows.Forms.Label();
             this.label61 = new System.Windows.Forms.Label();
             this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.label85 = new System.Windows.Forms.Label();
+            this.label86 = new System.Windows.Forms.Label();
+            this.label88 = new System.Windows.Forms.Label();
             this.button37 = new System.Windows.Forms.Button();
             this.button38 = new System.Windows.Forms.Button();
             this.button39 = new System.Windows.Forms.Button();
@@ -215,9 +218,6 @@
             this.label92 = new System.Windows.Forms.Label();
             this.label93 = new System.Windows.Forms.Label();
             this.label94 = new System.Windows.Forms.Label();
-            this.label85 = new System.Windows.Forms.Label();
-            this.label86 = new System.Windows.Forms.Label();
-            this.label88 = new System.Windows.Forms.Label();
             this.label95 = new System.Windows.Forms.Label();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
@@ -357,6 +357,7 @@
             this.label1.Size = new System.Drawing.Size(375, 31);
             this.label1.TabIndex = 13;
             this.label1.Text = "FrameHouse Movie Theater";
+            this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // label13
             // 
@@ -1595,6 +1596,33 @@
             this.tabPage3.Text = "БАА";
             this.tabPage3.UseVisualStyleBackColor = true;
             // 
+            // label85
+            // 
+            this.label85.AutoSize = true;
+            this.label85.Location = new System.Drawing.Point(958, 18);
+            this.label85.Name = "label85";
+            this.label85.Size = new System.Drawing.Size(71, 18);
+            this.label85.TabIndex = 171;
+            this.label85.Text = "Тулаант";
+            // 
+            // label86
+            // 
+            this.label86.AutoSize = true;
+            this.label86.Location = new System.Drawing.Point(958, 47);
+            this.label86.Name = "label86";
+            this.label86.Size = new System.Drawing.Size(78, 18);
+            this.label86.TabIndex = 170;
+            this.label86.Text = "Түгшүүрт";
+            // 
+            // label88
+            // 
+            this.label88.AutoSize = true;
+            this.label88.Location = new System.Drawing.Point(958, 78);
+            this.label88.Name = "label88";
+            this.label88.Size = new System.Drawing.Size(107, 18);
+            this.label88.TabIndex = 169;
+            this.label88.Text = "Адал явдалт";
+            // 
             // button37
             // 
             this.button37.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -2158,33 +2186,6 @@
             this.label94.Size = new System.Drawing.Size(49, 18);
             this.label94.TabIndex = 171;
             this.label94.Text = "05/09";
-            // 
-            // label85
-            // 
-            this.label85.AutoSize = true;
-            this.label85.Location = new System.Drawing.Point(958, 18);
-            this.label85.Name = "label85";
-            this.label85.Size = new System.Drawing.Size(71, 18);
-            this.label85.TabIndex = 171;
-            this.label85.Text = "Тулаант";
-            // 
-            // label86
-            // 
-            this.label86.AutoSize = true;
-            this.label86.Location = new System.Drawing.Point(958, 47);
-            this.label86.Name = "label86";
-            this.label86.Size = new System.Drawing.Size(78, 18);
-            this.label86.TabIndex = 170;
-            this.label86.Text = "Түгшүүрт";
-            // 
-            // label88
-            // 
-            this.label88.AutoSize = true;
-            this.label88.Location = new System.Drawing.Point(958, 78);
-            this.label88.Name = "label88";
-            this.label88.Size = new System.Drawing.Size(107, 18);
-            this.label88.TabIndex = 169;
-            this.label88.Text = "Адал явдалт";
             // 
             // label95
             // 
